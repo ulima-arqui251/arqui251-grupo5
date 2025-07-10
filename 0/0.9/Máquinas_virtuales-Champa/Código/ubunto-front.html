@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cliente Ubuntu</title>
+</head>
+<body>
+    <h2>Enviar data al servidor de Windows</h2>
+    <button onclick="sendData()">Enviar Data</button>
+    <button onclick="getData()">Obtener Data</button>
+
+    <script>
+        const serverUrl = 'http://192.168.88.128:5000'; // Ip de Windows
+
+        function sendData() {
+            fetch(serverUrl + '/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: "Hola desde Ubuntu" })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Server Response:', data));
+        }
+
+        function getData() {
+            fetch(serverUrl + '/receive')
+            .then(response => response.json())
+            .then(data => console.log('Latest Data from Server:', data));
+        }
+    </script>
+</body>
+</html>
